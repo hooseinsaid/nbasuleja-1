@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+<<<<<<< HEAD
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -13,6 +14,19 @@ const eventsRouter = ('./routes/Events')
 const database = require('./models/database')
 
 const app = express();
+=======
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+var sassMiddleware = require('node-sass-middleware');
+
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+
+var app = express();
+>>>>>>> b36437cb4f2b0f0c04d232ed557479d9f8284797
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views/pages'));
@@ -32,9 +46,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+<<<<<<< HEAD
 app.use('/news', newsRouter)
 app.use('/events', newsRouter)
 app.use('/members', newsRouter)
+=======
+>>>>>>> b36437cb4f2b0f0c04d232ed557479d9f8284797
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
