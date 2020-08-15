@@ -2,7 +2,7 @@ const express = require ('express');
  const router = express.Router();
  const Events = require ('./models/events')
 
- router.get('/events', async (req, res)=>{
+ router.post('/events', async (req, res)=>{
      console.log('events route is working')
     const events = new Events ({
         headline: req.body.headline,

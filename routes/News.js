@@ -2,7 +2,7 @@ const express = require ('express');
  const router = express.Router();
  const News = require ('./models/news')
 
- router.get('/news', async (req, res)=>{
+ router.post('/news', async (req, res)=>{
     const news = new News ({
         headline: req.body.headline,
         content: req.body.content

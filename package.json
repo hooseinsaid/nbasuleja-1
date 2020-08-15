@@ -11,10 +11,7 @@
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
-<<<<<<< HEAD
     "mongoose": "^5.9.28",
-=======
->>>>>>> b36437cb4f2b0f0c04d232ed557479d9f8284797
     "morgan": "~1.9.1",
     "node-sass-middleware": "0.11.0"
   },
