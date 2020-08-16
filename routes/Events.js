@@ -1,10 +1,10 @@
 const express = require ('express');
  const router = express.Router();
- const Events = require ('./models/events')
+ const Events = require ('../models/events')
 
- router.post('/events', async (req, res)=>{
+ router.get('/events', async (req, res)=>{
      console.log('events route is working')
-    const events = new Events ({
+   /* const events = new Events ({
         headline: req.body.headline,
         content: req.body.content
     })
@@ -15,8 +15,8 @@ const express = require ('express');
         else {
             res.send({success: true});
         }
-    })
-
+    }) */
+res.send('isssss')
  })
 
  module.exports = router;

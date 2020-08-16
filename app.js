@@ -7,9 +7,9 @@ const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const newsRouter = ('./routes/News')
-const membersRouter = ('./routes/Members')
-const eventsRouter = ('./routes/Events')
+const newsRouter = require ('./routes/News')
+const membersRouter = require ('./routes/Members')
+const eventsRouter = require ('./routes/Events')
 const database = require('./models/database')
 
 const app = express()
@@ -33,8 +33,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/news', newsRouter)
-app.use('/events', newsRouter)
-app.use('/members', newsRouter)
+app.use('/events', eventsRouter)
+app.use('/members', membersRouter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

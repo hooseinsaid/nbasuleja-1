@@ -1,6 +1,6 @@
 const express = require ('express');
  const router = express.Router();
- const Members = require ('./models/members')
+ const Members = require ('../models/members')
 
  router.post('/members', async (req, res)=>{
     const members = new Members ({

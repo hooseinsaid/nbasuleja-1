@@ -1,6 +1,6 @@
 const express = require ('express');
  const router = express.Router();
- const News = require ('./models/news')
+ const News = require ('../models/news')
 
  router.post('/news', async (req, res)=>{
     const news = new News ({
