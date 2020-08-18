@@ -10,6 +10,10 @@ const usersRouter = require('./routes/users');
 const newsRouter = require ('./routes/News')
 const membersRouter = require ('./routes/Members')
 const eventsRouter = require ('./routes/Events')
+const dashboardRouter = require ('./routes/dashboard')
+const aboutRouter = require ('./routes/about')
+const searchRouter = require ('./routes/search')
+const contactRouter = require ('./routes/contact')
 const database = require('./models/database')
 
 const app = express()
@@ -32,13 +36,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/news', newsRouter)
-app.use('/events', eventsRouter)
-app.use('/members', membersRouter)
+app.use('/publish-news', newsRouter)
+app.use('/publish-events', eventsRouter)
+app.use('/add-members', membersRouter)
+app.use('/dashboard', dashboardRouter)
+app.use('/about', aboutRouter)
+app.use('/find-a-lawyer', searchRouter)
+app.use('/contact-us', contactRouter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+
 
 // error handler
 // eslint-disable-next-line no-unused-vars
