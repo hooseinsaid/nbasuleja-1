@@ -2,14 +2,18 @@ const express = require ('express');
  const router = express.Router();
  const Members = require ('../models/members')
 
- router.post('/', async (req, res)=>{
-     console.log(req.body)
-    const members = new Members ({
+ router.post('/', (req, res)=>{
+     console.log(req.body.name)
+    const member = new Members ({
     Name: req.body.name,
     idNumber: req.body.id,
     Status: req.body.status
     })
-    await Members.create(members).then((members, err)=>{
+
+    console.log(member)
+
+    Members.create(member).then((member, err)=>{
+        console.log(member);
         if (err){
             res.send(err);
         }

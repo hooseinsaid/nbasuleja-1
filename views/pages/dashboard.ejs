@@ -116,7 +116,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="eventmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade rounded-0" id="eventmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -289,7 +289,7 @@ console.log(memberdata)
 $.ajax({
     url: "/add-members/",
     method:"POST",
-    data: JSON.stringify(memberdata),
+    data: memberdata,
     mrpostType:"application/json",
     success:function(response){
         console.log(response)

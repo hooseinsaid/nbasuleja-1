@@ -2,6 +2,7 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
+const bodyparser = require('body-parser')
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
@@ -14,6 +15,8 @@ const dashboardRouter = require ('./routes/dashboard')
 const aboutRouter = require ('./routes/about')
 const searchRouter = require ('./routes/search')
 const contactRouter = require ('./routes/contact')
+const allmembersRouter = require('./routes/membersPageroute')
+const getmemberRouter = require('./routes/getmember')
 const database = require('./models/database')
 
 const app = express()
@@ -22,6 +25,7 @@ const app = express()
 app.set('views', path.join(__dirname, 'views/pages'));
 app.set('view engine', 'ejs');
 
+app.use(bodyparser.json());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -43,12 +47,12 @@ app.use('/dashboard', dashboardRouter)
 app.use('/about', aboutRouter)
 app.use('/find-a-lawyer', searchRouter)
 app.use('/contact-us', contactRouter)
+app.use('/members', allmembersRouter)
+app.use('getmember/:id', getmemberRouter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
-
 
 // error handler
 // eslint-disable-next-line no-unused-vars
