@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin Dashboard</title>
+    
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  <%- include('partials/head')%>
+</head>
+<body>
+        
+        <%- include('partials/header')%>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <button class="btn rounded-0 btn-lg" style="background-color: #ac8074" id="addmember">
+                ADD A NEW MEMBER
+            </button> <br>
+
+            <button class="btn btn-lg mt-4 rounded-0 " style="background-color: #ac8074" id="addevent">
+                    ADD A NEW EVENT
+                </button> <br>
+
+                <button class="btn mt-4 btn-lg rounded-0 " style="background-color: #ac8074" id="addnews">
+                        CREATE NEWS
+                    </button>
+        </div>
+
+        <div class="col-md-6">
+            <div id="member">
+                    <h2>Add new member</h2>
+                    <hr>
+        <form id="membersform" enctype="multipart/form-data" method="POST">
+            <div class="form-group">
+                <label for="name" class="label-control">Name</label>
+                <input type="text" name="name" id="name" class="form-control rounded-0">
+            </div>
+        
+            <div class="form-group">
+                    <label for="name" class="label-control">Identification Number</label>
+                    <input type="text" name="id" id="id" class="form-control rounded-0">
+                </div>
+        
+                <div class="form-group">
+                        <label for="name" class="label-control">Status</label>
+                        <select class="form-control rounded-0" id="status">
+                                <option>President</option>
+                                <option>Vice President</option>
+                                <option>Secretary General</option>
+                                <option>Member</option>
+                              </select>
+                    </div>
+                    <div class="form-group">
+                            <label for="name" class="label-control">Profile Picture</label>
+                            <input type="file" name="profilePicture" id="profilePicture" class="form-control rounded-0">
+                        </div>
+                        <button type="submit" class="form-control mb-4 btn rounded-0" style="background-color: #ac8074">ADD MEMBER</button>
+        </form>
+            </div>
+          
+<div id="event">
+        <h2>Add new event</h2>
+        <hr>
+<form id="eventform">
+<div class="form-group">
+    <label for="name" class="label-control">Title</label>
+    <input type="text" name="eventtitle" id="eventtitle" class="form-control rounded-0">
+</div>
+
+<div class="form-group">
+        <label for="name" class="label-control">Event Content</label>
+        <textarea rows=10 name="eventcontent" id="eventcontent" class="form-control rounded-0"></textarea>
+    </div>
+
+    <button type="submit" class="form-control btn mb-4 rounded-0" style="background-color: #ac8074">PUBLISH EVENT</button> 
+</form>
+</div>
+
+<div id="news">
+        <h2>Create news</h2>
+        <hr>
+<form id="newsform">
+<div class="form-group">
+    <label for="name" class="label-control">Title</label>
+    <input type="text" name="newstitle" id="newstitle" class="form-control rounded-0">
+</div>
+
+<div class="form-group">
+        <label for="name" class="label-control">News Content</label>
+        <textarea rows=10 name="newscontent" id="newscontent" class="form-control rounded-0"></textarea>
+    </div>
+
+    <div class="form-group">
+            <label for="name" class="label-control">Publisher</label>
+            <select class="form-control rounded-0" id="Status">
+                    <option>President</option>
+                    <option>Vice President</option>
+                    <option>Secretary General</option>
+                    <option>Member</option>
+                  </select>
+        </div>
+        <div class="form-group">
+                <label for="name" class="label-control">News Image</label>
+                <input type="file" name="newsImage" id="newsImage" class="form-control rounded-0">
+            </div>
+            <button type="submit" class="form-control btn mb-4 rounded-0" style="background-color: #ac8074">PUBLISH NEWS</button>
+</form>
+</div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade rounded-0" id="eventmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="color:#28a745">
+          Success!!! Event has been published.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger rounded-0 btn-sm" data-dismiss="modal">Close</button>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="newsmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="color:#28a745">
+            Success!!! News has been published.
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="membermodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="color:#28a745">
+            Success!!! Member has been added.
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <%- include('partials/footer') %>
+    <script>
+        $(document).ready( () => {
+const member = $('#member');
+const event = $("#event");
+const news = $('#news');
+//
+const addmember = $("#addmember")
+const addevent = $("#addevent")
+const addnews = $("#addnews")
+//
+const eventmodal = $('#eventmodal')
+const membermodal = $('#membermodal')
+const newsmodal = $('#newsmodal')
+console.log(eventmodal)
+$(window).load(()=>{
+    member.show();
+    event.hide();
+    news.hide();
+})
+
+addmember.on('click', ()=>{
+    member.show();
+    event.hide();
+    news.hide();
+})
+
+addevent.on('click', ()=>{
+    member.hide();
+    event.show();
+    news.hide();
+})
+
+addnews.on('click', ()=>{
+    member.hide();
+    event.hide();
+    news.show();
+})
+
+
+
+// event publishing
+
+$('#eventform').on('submit', (e)=>{
+    e.preventDefault();
+    const eventdata = {
+    title: $('#eventtitle').val(),
+    content: $('#eventcontent').val()
+}
+
+console.log(eventdata)
+
+$.ajax({
+    url: "/publish-events/",
+    method:"POST",
+    data: JSON.stringify(eventdata),
+    mrpostType:"application/json",
+    success:function(response){
+        console.log(response)
+        console.log(response.success)
+
+        if (response.success === true){
+    eventmodal.modal();
+    $('#eventtitle').val('')
+    $('#eventcontent').val('')
+        }
+    }
+  })
+})
+
+// news publishing
+
+$('#newsform').on('submit', (e)=>{
+    e.preventDefault();
+    const newsdata = {
+    title: $('#newstitle').val(),
+    content: $('#newscontent').val()
+}
+
+$.ajax({
+    url: "/publish-news/",
+    method:"POST",
+    data: JSON.stringify(newsdata),
+    mrpostType:"application/json",
+    success:function(response){
+        console.log(response)
+        console.log(response.success)
+
+        if (response.success === true){
+    newsmodal.modal();
+    $('#newstitle').val('')
+    $('#newscontent').val('')
+        }
+    }
+  })
+})
+
+// adding members
+
+$('#membersform').on('submit', (e)=>{
+    e.preventDefault();
+    const memberdata = {
+    name: $('#name').val(),
+    id: $('#id').val(),
+    status: $('#status').val(),
+    picture: $('#profilePicture').val()
+}
+
+console.log(memberdata)
+
+$.ajax({
+    url: "/add-members/",
+    method:"POST",
+    data: memberdata,
+    mrpostType:"application/json",
+    success:function(response){
+        console.log(response)
+        console.log(response.success)
+
+        if (response.success === true){
+    membermodal.modal();
+    $('#name').val('')
+    $('#id').val('')
+    $('#status').val('')
+    $('#profilePicture').val('')
+        }
+    }
+  })
+})
+
+
+
+ })
+    </script>
+</body>
+</html>

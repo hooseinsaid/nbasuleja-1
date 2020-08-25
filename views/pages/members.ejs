@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
+		
+		<title>Lawyers | About Us</title>
+		
+		<!-- Loading third party fonts -->
+		<link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<link href="fonts/novecento-font/novecento-font.css" rel="stylesheet" >
+
+		<!-- Loading main css file -->
+		<link rel="stylesheet" href="style.css">
+		
+		<!--[if lt IE 9]>
+		<script src="js/ie-support/html5.js"></script>
+		<script src="js/ie-support/respond.js"></script>
+		<![endif]-->
+		<%- include('partials/head')%>
+	</head>
+	<body>
+			<%- include('partials/header')%>
+		
+		<div class="container-fluid">
+			<div class="members">
+				<% members.forEach((member)=>{%>
+					<div class="row">
+							<div class="col-md-2">
+			
+							</div>
+							<div class="col-md-1">
+			<img src="/images/logo.png" alt="">
+							</div>
+							<div class="col-md-4">
+								<p>Name : <span id="<%=member._id%>name"> <%=member.Name%></span> </p>
+								<p>Status: <span id="<%=member._id%>status"> <%=member.Status%> </span></p>
+								<p>Id number: <span id="<%=member._id%>id"><%=member.idNumber%></span></p>
+								<div class="d-flex justify-content-center">
+									<button data-userid="<%=member._id%>" type="submit" id="edit" class="btn btn-sm rounded-0  mb-4 btn-secondary">Edit</button>
+									<button data-userid="<%=member._id%>" type="submit" id="delete" class="btn btn-danger btn-sm mb-4 rounded-0">Delete</button>
+							</div>
+							<div class="col-md-2">
+										</div>
+							</div>
+						</div>
+						<% })%>
+			</div>
+
+			<div class="edit">
+					<h2>EDIT MEMBER</h2>
+                    <hr>
+        <form id="membersform" enctype="multipart/form-data" method="POST">
+            <div class="form-group">
+                <label for="name" class="label-control">Name</label>
+                <input type="text" name="name" id="name" class="form-control rounded-0">
+            </div>
+        
+            <div class="form-group">
+                    <label for="name" class="label-control">Identification Number</label>
+                    <input type="text" name="id" id="id" class="form-control rounded-0">
+                </div>
+        
+                <div class="form-group">
+                        <label for="name" class="label-control">Status</label>
+                        <select class="form-control rounded-0" id="status">
+                                <option>President</option>
+                                <option>Vice President</option>
+                                <option>Secretary General</option>
+                                <option>Member</option>
+                              </select>
+                    </div>
+                    <div class="form-group">
+                            <label for="name" class="label-control">Profile Picture</label>
+                            <input type="file" name="profilePicture" id="profilePicture" class="form-control rounded-0">
+                        </div>
+                        <button type="submit" id="editmember"  class="form-control mb-4 btn rounded-0" style="background-color: #ac8074">ADD MEMBER</button>
+        </form>
+			</div>
+          
+        </div>
+
+		<%- include('partials/footer') %>
+<script>
+$(document).ready(()=>{
+	$(window).load(()=>{
+	$('#members').show();
+	$('#edit').hide()
+    
+})
+
+$('#edit').on('submit', (e)=>{
+e.preventDefault();
+const id = $('#edit').data('userid') 
+$.ajax({
+	url: '/getmember/' +id,
+	method: 'GET',
+	contentType: 'application/json',
+	success: (response)=>{
+		console.log(response);
+		const member = response;
+		$('#members').hide()
+		$('#edit').show()
+		$('#name').val(member.name)
+		$('#id').val(member.id)
+		$('#id').val(member.status)
+
+	}
+})
+
+})
+
+$("#editmember").on('submit', (e)=>{
+e.preventDefault();
+const id = $('#edit').data('userid') 
+const newinfo = {
+	name: $("#name").val(),
+	id: $("#id").val(),
+	status: $("#status").val(),
+	profilePicture: $("#profilePicture").val()
+}
+
+$.ajax({
+	url: '/editmember/' + id,
+	method: 'PUT',
+	data: newinfo,
+	contentType: 'application/json',
+	success: (response)=>{
+	console.log(response)
+	const editedMember = response;
+	$('#edit').hide()
+	$('#members').show()
+	$('#`${{id}}`name').text(editedMember.name)
+	$('#`${{id}}`id').text(editedMember.id)
+	$('#`${{id}}`status').text(editedMember.status)
+	}
+})
+
+})
+
+})
+
+</script>
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/plugins.js"></script>
+		<script src="js/app.js"></script>
+		
+	</body>
+
+</html>
