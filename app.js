@@ -16,9 +16,9 @@ const aboutRouter = require ('./routes/about')
 const searchRouter = require ('./routes/search')
 const contactRouter = require ('./routes/contact')
 const allmembersRouter = require('./routes/membersPageroute')
-const getmemberRouter = require('./routes/getmember')
 const geteventRouter = require('./routes/getevent')
 const getnewsRouter = require('./routes/getnews')
+const getprofileRouter = require('./routes/profile')
 const database = require('./models/database')
 
 const app = express()
@@ -50,9 +50,9 @@ app.use('/about', aboutRouter)
 app.use('/find-a-lawyer', searchRouter)
 app.use('/contact-us', contactRouter)
 app.use('/members', allmembersRouter)
-app.use('getmember/:id', getmemberRouter)
 app.use('getevent/:id', geteventRouter)
 app.use('getnews/:id', getnewsRouter)
+app.use('getprofile/:id', getprofileRouter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
