@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const URI = 'mongodb://localhost:27017/NBASULEJA';
+const URI = 'mongodb://localhost:27017/DanbabaDB';
 const MONGODB_URI = 'mongodb+srv://danbaba1882:NAZIR1882@megaincomedb-wqmxa.mongodb.net/NBASULEJA'
 const mongoOptions = {useNewUrlParser: true, useUnifiedToplogy:true}
 

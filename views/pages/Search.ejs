@@ -1,121 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
-		
-		<title>Find a Lawyer</title>
-		
-		<!-- Loading third party fonts -->
-		<link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
-		<link href="fonts/novecento-font/novecento-font.css" rel="stylesheet" >
+<head>
+    <%- include('partials/head')%>
+</head>
+<body class="container-fluid" id="site-content">
 
-		<!-- Loading main css file -->
-		<link href="style.css" rel="stylesheet" >
-		<!--website logo icon-->
-		<link rel="icon" href="/images/favicon.png">
-		<!--[if lt IE 9]>
-		<script src="js/ie-support/html5.js"></script>
-		<script src="js/ie-support/respond.js"></script>
-		<![endif]-->
+<header>
+    <%- include('partials/header')%>
+</header>
+<main class="main-content">
+    <div class="hero">
+        <div class="container">
+            <div class="row">
+                <div class="subscribe-form">
+                    <form action="find-a-lawyer" method="POST">
+                        <label for="#">
+                            <span>Find a Lawyer</span>
+                        </label>
+                        <div class="control">
+                            <input name="input_search" type="text" class="input" placeholder="Search Name or Enrollment Number...">
+                            <button type="submit"><img src="images/icon-user.png" alt=""></button>
+                                                    </form>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- .hero-slider -->
+<div class="result">
+   <% if (model.length>0 || model) { %>
+    <h2>search results: <%- model.length %> </h2>
+    <% for( let index = 0; index < model.length; index++ ) { %>
+        <div onclick="location.href='#?user=<%- model[index].idNumber %>';" style="cursor: pointer;"  class="container courses-container ">
+            <div class="course">
+                <div class="course-preview">
+                    <img class="d-block w-100 " src="<%- model[index].profilePicture %>" alt="" style="width: 150px;border-radius: 50%;" ></a>
+                </div>
+                <div class="course-info">
+                    
+                    <h3><%- model[index].Name %></h3>
+                    <h6>Enrollment No: <span><%- model[index].idNumber %> </span></h6>
+                    <h6>Called Up In The Year :<span><%- model[index].date.getFullYear() %> </span></h6>
+                    <p><em><%- model.Status %> </em></p>
+                </div>
+            </div>
+        </div>
+    <% } %>
+   <% } else{ %>
+   <% } %>
+</div>
+       <br>
+      <br>
+       
+</main> <!-- .main-content -->
 
-		<%- include('partials/head')%>
-	</head>
-
-
-	<body>
-			<%- include('partials/header')%>
-		
-		<div id="site-content">
-			
-
-			<main class="main-content">
-				<div class="hero">
-					<div class="container">
-						<div class="row">
-							<div class="subscribe-form">
-                                <form action="#">
-                                    <label for="#">
-                                        <span>Find a Lawyer</span>
-                                    </label>
-                                    <div class="control">
-                                        <input type="text" class="input" placeholder="Search Name or Enrollment Number...">
-                                        <button type="submit"><img src="images/icon-user.png" alt=""></button>
-                                                                </form>
-                                    </div>
-                            </div>
-						</div>
-					</div>
-				</div> <!-- .hero-slider -->
-			<div class="result">
-				<h2>search results: </h2>
-			</div>
-				<div class="container courses-container ">
-					<div class="course">
-						<div class="course-preview">
-							<img class="d-block w-100 " src="/dummy/person-1.png" alt="" style="width: 150px;border-radius: 50%;" ></a>
-						</div>
-						<div class="course-info">
-							
-							<h3>Name Surname</h3>
-							<h6>Enrollment no: <span>SCN030835</span></h6>
-							<h6>Called Up In The Year :<span> 2018</span></h6>
-							<p><em>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta maiores animi 
-								sint, eius iusto cumque asperiores officiis corrupti corporis molestias, distinctio
-								 reprehenderit adipisci beatae. Assumenda dolores minima ad dolore quia?</em></p>
-
-						</div>
-					</div>
-				</div>
-				<div class="container courses-container ">
-					<div class="course">
-						<div class="course-preview">
-							<img class="d-block w-100 " src="/dummy/person-2.png" alt="" style="width: 150px;border-radius: 50%;" ></a>
-						</div>
-						<div class="course-info">
-							
-							<h3>Name Surname</h3>
-							<h6>Enrollment no: <span>SCN030835</span></h6>
-							<h6>Called Up In The Year :<span> 2018</span></h6>
-							<p><em>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta maiores animi 
-								sint, eius iusto cumque asperiores officiis corrupti corporis molestias, distinctio
-								 reprehenderit adipisci beatae. Assumenda dolores minima ad dolore quia?</em></p>
-
-						</div>
-					</div>
-				</div>
-				<div class="container courses-container ">
-					<div class="course">
-						<div class="course-preview">
-							<img class="d-block w-100 " src="/dummy/person-3.png" alt="" style="width: 150px;border-radius: 50%;" ></a>
-						</div>
-						<div class="course-info">
-							
-							<h3>Name Surname</h3>
-							<h6>Enrollment no: <span>SCN030835</span></h6>
-							<h6>Called Up In The Year :<span> 2018</span></h6>
-							<p><em>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta maiores animi 
-								sint, eius iusto cumque asperiores officiis corrupti corporis molestias, distinctio
-								 reprehenderit adipisci beatae. Assumenda dolores minima ad dolore quia?</em></p>
-
-						</div>
-					</div>
-				</div>
-				   <br>
-				  <br>
-				   
-			</main> <!-- .main-content -->
-
-			<%- include('partials/footer') %>
-		</div> <!-- #site-content -->
-
-		
-
-		<script src="js/jquery-1.11.1.min.js"></script>
+<footer>
+    <%- include('partials/footer') %>
+</footer>
+<script src="js/jquery-1.11.1.min.js"></script>
 		<script src="js/plugins.js"></script>
 		<script src="js/app.js"></script>
-		
-	</body>
-
+</body>
 </html>
