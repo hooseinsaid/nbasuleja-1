@@ -6,7 +6,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
 		
 		<title>Lawyers | About Us</title>
-		
+		<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 		<!-- Loading third party fonts -->
 		<link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<link href="fonts/novecento-font/novecento-font.css" rel="stylesheet" >
@@ -20,19 +23,137 @@
 		<![endif]-->
 		<%- include('partials/head')%>
 	</head>
-
-
 	<body>
 			<%- include('partials/header')%>
 		
-		
+		<div class="container-fluid">
+			<div class="newss">
+				<% newss.forEach((news)=>{%>
+					<div class="row">
+							<div class="col-md-2">
+			
+							</div>
+							<div class="col-md-1">
+			<img src="/images/logo.png" alt="">
+							</div>
+							<div class="col-md-4">
+								<p>Name : <span id="<%=news._id%>name"> <%=news.Name%></span> </p>
+								<p>Status: <span id="<%=news._id%>status"> <%=news.Status%> </span></p>
+								<p>Id number: <span id="<%=news._id%>id"><%=news.idNumber%></span></p>
+								
+								<div class="d-flex">
+									<a id="edits" href="/getnews/<%=news._id%>" data-userid="<%=news._id%>"   class="btn btn-sm rounded-0  mb-4 btn-secondary mr-2">Edit</a>
+									<button id="delete" data-userid="<%=news._id%>"   class="btn btn-danger btn-sm mb-4 rounded-0">Delete</button>
+							</div>
+							<div class="col-md-2">
+										</div>
+							</div>
+						</div>
+						<% })%>
+			</div>
 
-		
+			<div class="edit">
+					<h2>EDIT NEWS</h2>
+                    <hr>
+        <form id="newssform" enctype="multipart/form-data" method="POST">
+            <div class="form-group">
+                <label for="name" class="label-control">Name</label>
+                <input type="text" name="name" id="name" class="form-control rounded-0">
+            </div>
+        
+            <div class="form-group">
+                    <label for="name" class="label-control">Identification Number</label>
+                    <input type="text" name="id" id="id" class="form-control rounded-0">
+                </div>
+        
+                <div class="form-group">
+                        <label for="name" class="label-control">Status</label>
+                        <select class="form-control rounded-0" id="status">
+                                <option>President</option>
+                                <option>Vice President</option>
+                                <option>Secretary General</option>
+                                <option>news</option>
+                              </select>
+                    </div>
+                    <div class="form-group">
+                            <label for="name" class="label-control">Profile Picture</label>
+                            <input type="file" name="profilePicture" id="profilePicture" class="form-control rounded-0">
+                        </div>
+                        <button type="submit" id="editnews"  class="form-control mb-4 btn rounded-0" style="background-color: #ac8074">EDIT news</button>
+        </form>
+			</div>
+          
+        </div>
+
+		<%- include('partials/footer') %>
 
 		<script src="js/jquery-1.11.1.min.js"></script>
 		<script src="js/plugins.js"></script>
 		<script src="js/app.js"></script>
-		
+		<script>
+			$(document).ready(()=>{
+
+
+				$(window).load(()=>{
+				$('.newss').show();
+				$('.edit').hide()
+			
+			})
+			
+			$("#edits").on("click", (e)=>{
+				e.preventDefault();
+			console.log('submitted')
+			const id = $("#edit").data('userid')
+			console.log(id) 
+			$.ajax({
+				url: '/getnews/' +id,
+				method: 'GET',
+				contentType: 'application/json',
+				success: (response)=>{
+					console.log(response);
+					const news = response;
+					$('.newss').hide()
+					$('.edit').show()
+					$('#name').val(news.name)
+					$('#id').val(news.id)
+					$('#id').val(news.status)
+			
+				}
+			})
+			
+			})
+			
+			$("#editnews").on('submit', (e)=>{
+			e.preventDefault();
+			const id = $('#edit').data('userid') 
+			const newinfo = {
+				name: $("#name").val(),
+				id: $("#id").val(),
+				status: $("#status").val(),
+				profilePicture: $("#profilePicture").val()
+			}
+			
+			$.ajax({
+				url: '/editnews/' + id,
+				method: 'PUT',
+				data: newinfo,
+				contentType: 'application/json',
+				success: (response)=>{
+				console.log(response)
+				const editednews = response;
+				$('#edit').hide()
+				$('#newss').show()
+				$('#`${{id}}`name').text(editednews.name)
+				$('#`${{id}}`id').text(editednews.id)
+				$('#`${{id}}`status').text(editednews.status)
+				}
+			})
+			
+			})
+			
+			})
+			
+			</script>
 	</body>
 
 </html>
