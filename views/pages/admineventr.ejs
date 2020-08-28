@@ -27,7 +27,7 @@
 			<%- include('partials/header')%>
 		
 		<div class="container-fluid">
-			<div class="members">
+			<div class="news">
 				
 					<div class="row">
 							<div class="col-md-2">
@@ -37,13 +37,15 @@
 			<img src="/images/logo.png" alt="">
 							</div>
 							<div class="col-md-4">
-								<p>Name : <span id="<%=member._id%>name"> <%=member.Name%></span> </p>
-								<p>Status: <span id="<%=member._id%>status"> <%=member.Status%> </span></p>
-								<p>Id number: <span id="<%=member._id%>id"><%=member.idNumber%></span></p>
+								  <h2><%=event.title%></h2>
+                                <p> <%=event.date%></p>
+                                <p><i>Published by</i> nbasuleja</p>
+                                <hr>
+								<p><span id="<%=member._id%>id"><%=event.content%></span></p>
 								
 								<div class="d-flex">
-								<button id="edit" data-userid="<%=member._id%>"   class="btn btn-sm rounded-0  editt mb-4 btn-secondary mr-2">Edit</button>
-								<button id="delete" data-userid="<%=member._id%>"   class="btn btn-danger btn-sm mb-4 rounded-0">Delete</button>
+								<button id="edit" data-userid="<%=event._id%>"   class="btn btn-sm rounded-0  editt mb-4 btn-secondary mr-2">Edit</button>
+								<button id="delete" data-userid="<%=event._id%>"   class="btn btn-danger btn-sm mb-4 rounded-0">Delete</button>
 								</div>
 								
 								
@@ -57,34 +59,21 @@
 	<div class="col-md-3"></div>
 	<div class="col-md-6">
 		<div class="edit">
-			<h2>EDIT MEMBER</h2>
+			<h2>EDIT NEWS</h2>
 			<hr>
 <form id="membersform" enctype="multipart/form-data" method="POST">
 	<div class="form-group">
-		<label for="name" class="label-control">Name</label>
-		<input type="text" name="name" id="name" value="<%=member.Name%>" class="form-control rounded-0">
+		<label for="name" class="label-control">Title</label>
+		<input type="text" name="title" id="title" value="<%=event.title%>" class="form-control rounded-0">
 	</div>
 
 	<div class="form-group">
-			<label for="name" class="label-control">Identification Number</label>
-			<input type="text" name="id" id="id" value="<%=member.id%>" class="form-control rounded-0">
+			<label for="name" class="label-control">Content</label>
+			<input type="text" name="content" id="content" value="<%=event.content%>" class="form-control rounded-0">
 		</div>
 
-		<div class="form-group">
-				<label for="name" class="label-control">Status</label>
-				<select class="form-control rounded-0" id="status">
-						<option>President</option>
-						<option>Vice President</option>
-						<option>Secretary General</option>
-						<option>Member</option>
-					  </select>
-			</div>
-			<div class="form-group">
-					<label for="name" class="label-control">Profile Picture</label>
-					<input type="file" name="profilePicture" value="<%=member.profilePicture%>" id="profilePicture" class="form-control rounded-0">
-				</div>
-				<button type="submit" id="editmember"  class="form-control mb-4 btn rounded-0" style="background-color: #ac8074">EDIT MEMBER</button>
-				<button type="submit" id="backtoprofile"  class="form-control mb-4 btn rounded-0" style="background-color: #ac8074">BACK TO PROFILE</button>
+				<button type="submit" id="editevent"  class="form-control mb-4 btn rounded-0" style="background-color: #ac8074">EDIT MEMBER</button>
+				<button type="submit" id="backtoevent"  class="form-control mb-4 btn rounded-0" style="background-color: #ac8074">BACK TO PROFILE</button>
 
 </form>
 	</div>
@@ -105,7 +94,7 @@
 
 
 				$(window).load(()=>{
-				$('.members').show();
+				$('.news').show();
 				$('.edit').hide()
 			
 			})
@@ -120,7 +109,7 @@
 			
 			})
 			
-			$("#backtoprofile").on("click", (e)=>{
+			$("#backtonews").on("click", (e)=>{
 				e.preventDefault();
 				$('.members').show()
 				$('.edit').hide()
@@ -128,7 +117,7 @@
 			
 			})
 
-			$("#editmember").on('submit', (e)=>{
+			$("#editnews").on('submit', (e)=>{
 			e.preventDefault();
 			const id = $('#edit').data('userid') 
 			const newinfo = {
