@@ -16,7 +16,11 @@ const aboutRouter = require ('./routes/about')
 const searchRouter = require ('./routes/search')
 const contactRouter = require ('./routes/contact')
 const allmembersRouter = require('./routes/membersPageroute')
-const getmemberRouter = require('./routes/getmember')
+const geteventRouter = require('./routes/getevent')
+const getnewsRouter = require('./routes/getnews')
+var mongoose = require('mongoose');
+var ObjectId = mongoose.Types.ObjectId;
+// const getprofileRouter = require('./routes/profile')
 const database = require('./models/database')
 
 const app = express()
@@ -48,7 +52,20 @@ app.use('/about', aboutRouter)
 app.use('/find-a-lawyer', searchRouter)
 app.use('/contact-us', contactRouter)
 app.use('/members', allmembersRouter)
-app.use('getmember/:id', getmemberRouter)
+app.use('getevent/:id', geteventRouter)
+app.use('getnews/:id', getnewsRouter)
+const router = express.Router();
+
+ const Members = require ('./models/members')
+
+app.get('/getprofile/:id',async (req, res)=>{
+    const id = new ObjectId(req.params.id);
+const member = await Members.findById({_id: id});
+console.log(member);
+    res.render('profile', {member: member})
+})
+
+// app.use('/getprofile/:id', getprofileRouter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
